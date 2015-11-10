@@ -7,19 +7,9 @@ $(document).ready(function(){
 		$("#page-2").show();
 		$("#page-1").hide();
 		$("#name").empty().append(artist);
-		$("#instagram-media").removeClass("hidden");
-		$.ajax({
-			url: "http://127.0.0.1:8000/?url=https%3A%2F%2Fapi.instagram.com%2Fv1%2Ftags%2F" + artist + "%2Fmedia%2Frecent%3Fclient_id%3Dece9571300f54b3a90e8b46b8a7ca882",
-			success: function(data) {
-				data.data.forEach(function(el){
-					var src = el.images.standard_resolution.url;
-					var imgTag = "<img src=" + src + ">";
-					var link = el.link;
-					var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
-					$("#instagram-media").append(anchorTag);
-				});
-			}
-	})
+		$("#youtube-media").removeClass("hidden");
+		var video = "<iframe src=http://www.youtube.com/embed?listType=search&list='" + artist + "'></iframe>"
+		$("#youtube-media").append(video);
 	});
 
 	$("#instagram-content").click(function(event){
@@ -30,17 +20,25 @@ $(document).ready(function(){
 		$("#twitter-" + artist.toLowerCase()).addClass("hidden");
 		$("#instagram-media").removeClass("hidden");
 		$.ajax({
-			url: "http://127.0.0.1:8000/?url=https%3A%2F%2Fapi.instagram.com%2Fv1%2Ftags%2F" + artist + "%2Fmedia%2Frecent%3Fclient_id%3Dece9571300f54b3a90e8b46b8a7ca882",
-			success: function(data) {
-				data.data.forEach(function(el){
-					var src = el.images.standard_resolution.url;
-					var imgTag = "<img src=" + src + ">";
-					var link = el.link;
-					var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
-					$("#instagram-media").append(anchorTag);
-				});
+			url: "http://proxy.hackeryou.com/",
+			dataType: 'json',
+			method: 'GET',
+			data: {
+				reqUrl: 'https://api.instagram.com/v1/tags/' + artist + '/media/recent',
+				params: {
+					client_id: "ece9571300f54b3a90e8b46b8a7ca882",
+
+				}
 			}
-	})
+		}).then(function(data){
+			data.data.forEach(function(el){
+				var src = el.images.standard_resolution.url;
+				var imgTag = "<img src=" + src + ">";
+				var link = el.link;
+				var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
+				$("#instagram-media").append(anchorTag);
+			});
+		})
 		});
 
 
