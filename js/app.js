@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	var artist;
+	var youTubeiframeIsLoaded = false;
+	var instagramIsLoaded = false;
+	var artinfoIsLoaded = false;
+	var bingIsLoaded = false;
 
 	$(".text-content").click(function(event){
 		event.preventDefault();
@@ -8,8 +12,13 @@ $(document).ready(function(){
 		$("#page-1").hide();
 		$("#name").empty().append(artist);
 		$("#youtube-media").removeClass("hidden");
-		var video = "<iframe src=http://www.youtube.com/embed?listType=search&list='" + artist + "'></iframe>"
-		$("#youtube-media").append(video);
+		if (youTubeiframeIsLoaded) {
+			console.log("iframe already loaded");
+		} else {
+			var video = "<iframe src=http://www.youtube.com/embed?listType=search&list='" + artist + "'></iframe>"
+			$("#youtube-media").append(video);
+			youTubeiframeIsLoaded = true;
+		}
 	});
 
 	$("#instagram-content").click(function(event){
@@ -19,27 +28,33 @@ $(document).ready(function(){
 		$("#youtube-media").addClass("hidden");
 		$("#twitter-" + artist.toLowerCase()).addClass("hidden");
 		$("#instagram-media").removeClass("hidden");
-		$.ajax({
-			url: "http://proxy.hackeryou.com/",
-			dataType: 'json',
-			method: 'GET',
-			data: {
-				reqUrl: 'https://api.instagram.com/v1/tags/' + artist + '/media/recent',
-				params: {
-					client_id: "ece9571300f54b3a90e8b46b8a7ca882",
+		if (instagramIsLoaded) {
+			console.log("loaded");
+		} else {
+			$.ajax({
+				url: "http://proxy.hackeryou.com/",
+				dataType: 'json',
+				method: 'GET',
+				data: {
+					reqUrl: 'https://api.instagram.com/v1/tags/' + artist + '/media/recent',
+					params: {
+						client_id: "ece9571300f54b3a90e8b46b8a7ca882",
 
+					}
 				}
-			}
-		}).then(function(data){
-			data.data.forEach(function(el){
-				var src = el.images.standard_resolution.url;
-				var imgTag = "<img src=" + src + ">";
-				var link = el.link;
-				var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
-				$("#instagram-media").append(anchorTag);
-			});
-		})
-		});
+			}).then(function(data){
+				data.data.forEach(function(el){
+					var src = el.images.standard_resolution.url;
+					var imgTag = "<img src=" + src + ">";
+					var link = el.link;
+					var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
+					$("#instagram-media").append(anchorTag);
+				});
+				instagramIsLoaded = true;
+			})
+		}
+	});
+
 
 
 	$(".twitter-content").click(function(event){
@@ -58,9 +73,13 @@ $(document).ready(function(){
 		$("#bing-media").addClass("hidden");
 		$("#artinfo-media").removeClass("hidden");
 		$("#youtube-media").addClass("hidden");
-		// $("#social-media").empty();
-		var auction = "<iframe src=http://artsalesindex.artinfo.com/asi/search.action></iframe>"
-		$("#artinfo-media").append(auction);
+		if (artinfoIsLoaded) {
+			console.log("loaded");
+		} else {
+			var auction = "<iframe src=http://artsalesindex.artinfo.com/asi/search.action></iframe>"
+			$("#artinfo-media").append(auction);
+			artinfoIsLoaded = true;
+		}
 	})
 
 	$("#bing-content").click(function(event){
@@ -70,9 +89,13 @@ $(document).ready(function(){
 		$("#artinfo-media").addClass("hidden");
 		$("#bing-media").removeClass("hidden");
 		$("#youtube-media").addClass("hidden");
-		// $("#social-media").empty();
-		var news = "<iframe src=https://www.bing.com/news/></iframe>"
-		$("#bing-media").append(news);
+		if (bingIsLoaded) {
+			console.log ("loaded");
+		} else {
+			var news = "<iframe src=https://www.bing.com/news/></iframe>"
+			$("#bing-media").append(news);
+			bingIsLoaded = true;
+		}
 	})
 
 	$("#youtube-content").click(function(event){
@@ -82,8 +105,13 @@ $(document).ready(function(){
 		$("#artinfo-media").addClass("hidden");
 		$("#bing-media").addClass("hidden");
 		$("#youtube-media").removeClass("hidden");
-		var video = "<iframe src=http://www.youtube.com/embed?listType=search&list='" + artist + "'></iframe>"
-		$("#youtube-media").append(video);
+		if (youTubeiframeIsLoaded) {
+			console.log("iframe already loaded");
+		} else {
+			var video = "<iframe src=http://www.youtube.com/embed?listType=search&list='" + artist + "'></iframe>"
+			$("#youtube-media").append(video);
+			youTubeiframeIsLoaded = true;
+		}
 	})
 		});
 
