@@ -11,13 +11,31 @@ $(document).ready(function(){
 		$("#page-2").show();
 		$("#page-1").hide();
 		$("#name").empty().append(artist);
-		$("#youtube-media").removeClass("hidden");
-		if (youTubeiframeIsLoaded) {
-			console.log("iframe already loaded");
+		$("#instagram-media").removeClass("hidden");
+		if (instagramIsLoaded) {
+			console.log("loaded");
 		} else {
-			var video = "<iframe src=http://www.youtube.com/embed?listType=search&list='" + artist + "'></iframe>"
-			$("#youtube-media").append(video);
-			youTubeiframeIsLoaded = true;
+			$.ajax({
+				url: "http://proxy.hackeryou.com/",
+				dataType: 'json',
+				method: 'GET',
+				data: {
+					reqUrl: 'https://api.instagram.com/v1/tags/' + artist + '/media/recent',
+					params: {
+						client_id: "ece9571300f54b3a90e8b46b8a7ca882",
+
+					}
+				}
+			}).then(function(data){
+				data.data.forEach(function(el){
+					var src = el.images.standard_resolution.url;
+					var imgTag = "<img class='insta' src=" + src + ">";
+					var link = el.link;
+					var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
+					$("#instagram-media").append(anchorTag);
+				});
+				instagramIsLoaded = true;
+			})
 		}
 	});
 
@@ -45,7 +63,7 @@ $(document).ready(function(){
 			}).then(function(data){
 				data.data.forEach(function(el){
 					var src = el.images.standard_resolution.url;
-					var imgTag = "<img src=" + src + ">";
+					var imgTag = "<img class='insta' src=" + src + ">";
 					var link = el.link;
 					var anchorTag = "<a href='" + link + "'>" + imgTag + "</a>"
 					$("#instagram-media").append(anchorTag);
