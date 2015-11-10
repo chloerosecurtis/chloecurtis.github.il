@@ -1,0 +1,100 @@
+.clearfix:after {
+     content: ".";
+     display: block;
+     clear: both;
+     visibility: hidden;
+     line-height: 0;
+     height: 0;
+}
+
+.wrapper {
+  width: 830px;
+  margin-bottom: 25px;
+}
+
+.alignright {
+  float: right;
+}
+
+.alignleft {
+  float: left;
+}
+
+body {
+  font-family: "PT Sanes", sans-serif;
+}
+
+header {
+  border-bottom: 2px solid #DCDCDC;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 25px;
+  width: 830px;
+}
+
+h1 a {
+  text-decoration: none;
+  color: black;
+  font-size: 50px;
+  font-weight: 700;
+  padding-left: 30px;
+}
+
+h1 {
+  padding-top: 30px;
+  padding-bottom: 15px;
+}
+
+span {
+  color: red;
+}
+
+.icon{
+  display: inline-block;
+  margin-right: 27px;
+}
+
+.icon a {
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: black;
+}
+
+li a:hover{
+  color: red;
+}
+
+form {
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+img {
+  float: right;
+  width: 578px;
+  height: auto;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.info {
+    padding-top: 15px;
+    padding-left: 20px;
+    width: 160px;
+    height: 30px;
+    background-color: #D8D8D8 ;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.info a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-family: "Roboto Slab", serif;
+}
+
+
